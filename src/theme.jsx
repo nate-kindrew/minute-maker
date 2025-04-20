@@ -1,6 +1,11 @@
 import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
+    palette: {
+        primary: {
+            main: "#65b6c2"
+        }
+    },
     components: {
         MuiCardHeader: {
             styleOverrides: {
@@ -13,7 +18,15 @@ const theme = createTheme({
         MuiAppBar: {
             styleOverrides: {
                 root: {
-                    backgroundColor: "#65b6c2"
+                    backgroundColor: "#65b6c2",
+                    color: "#fff"
+                }
+            }
+        },
+        MuiButton: {
+            styleOverrides: {
+                containedPrimary: {
+                    color: "#fff"
                 }
             }
         }

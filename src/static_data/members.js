@@ -6,13 +6,6 @@ const Members = [{
     isMember: true,
     canVote: false
 }, {
-    name: "Nate Kindrew",
-    prefix: "",
-    justFirst: "Nate",
-    title: "Secretary",
-    isMember: true,
-    canVote: true
-}, {
     name: "Lonnie Kauffman",
     prefix: "",
     justFirst: "Lonnie",
@@ -44,14 +37,7 @@ const Members = [{
     name: "Mark Willenbrock",
     prefix: "",
     justFirst: "Mark",
-    title: "",
-    isMember: true,
-    canVote: true
-}, {
-    name: "Nick Massey",
-    prefix: "",
-    justFirst: "Nick",
-    title: "",
+    title: "Secretary",
     isMember: true,
     canVote: true
 }, {

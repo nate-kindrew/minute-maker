@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, Typography, Button, Collapse, CardHeader, IconButton } from "@mui/material";
 import { CardActions } from "@mui/material";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
-import { useEffect } from "react";
+import Motion from "../components/motion";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
-export default function Section({ title, children, toggleSection, name, next, current }) {
-    const [open, setOpen] = useState(name == current);
+export default function Section({ title, children, toggleSection, name, next, current, hasMotion }) {
+    const [open, setOpen] = useState(name === current);
+    const [showMotion, setShowMotion] = useState(false);
 
     const goNext = () => {
         toggleSection(next);
@@ -16,10 +19,10 @@ export default function Section({ title, children, toggleSection, name, next, cu
     }
 
     useEffect(() => {
-        setOpen(name == current);
-    }, [current]);
+        setOpen(name === current);
+    }, [current, name]);
     return (
-        <Card sx={{ marginBottom: "24px" }}>
+        <Card className="section">
             <CardHeader
                 title={<Typography variant="overline">{title}</Typography>}
                 action={<IconButton color="inherit" onClick={toggle}>{open ? <ExpandLess /> : <ExpandMore />}</IconButton>}
@@ -27,11 +30,17 @@ export default function Section({ title, children, toggleSection, name, next, cu
             <Collapse in={open}>
                 <CardContent>
                     {children}
+                    {showMotion && <Motion onClose={() => setShowMotion(false)} />}
                 </CardContent>
             </Collapse>
-            { open && 
+            { open &&
                 <CardActions>
-                    <Button color="success" onClick={goNext}>Next</Button>
+                    { next && <Button color="success" onClick={goNext}>Next</Button> }
+                    { hasMotion && !showMotion && 
+                        <Button color="success" onClick={() => { setShowMotion(true) }}>
+                            <FontAwesomeIcon icon={faPlus} className="mr-1" /> Motion 
+                        </Button>
+                    }
                 </CardActions>
             }
         </Card>

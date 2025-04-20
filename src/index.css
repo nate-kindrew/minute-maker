@@ -1,13 +1,58 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.Avatar-selected {
+  background-color: #65b6c2 !important;
+}
+
+.Avatar-button {
+  cursor: pointer;
+  margin: 0 8px 8px 0;
+}
+
+.Avatar-button:hover {
+  box-shadow: 3px 3px 6px 2px #e2e2e2;
+}
+
+.section {
+  margin: 32px 0;
+}
+
+.add-topic-container {
+  margin-bottom: 16px;
+}
+
+.mr-1 {
+  margin-right: 8px;
+}
+
+.mr-2 {
+  margin-right: 16px;
+}
+
+.mt-4 {
+  margin-top: 32px !important;
+}
+
+.input-line-height {
+  line-height: 28px;
+}
+
+.top-right {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 8px;
+}
+
+i.top-right:hover {
+  padding: 8px;
+  background:  #fd737320;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.icon-danger {
+  color: #fd7373;
 }

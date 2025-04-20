@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { AppBar, Container, Grid, IconButton, Typography, Toolbar, Hidden, TextField, Box } from "@mui/material";
-import { Menu } from "@mui/icons-material";
+import { Grid, Typography, Hidden, TextField, Box, Button } from "@mui/material";
 import { Timeline, TimelineItem, TimelineContent, TimelineConnector, TimelineSeparator, TimelineDot, TimelineOppositeContent } from "@mui/lab";
-// import { GridWrapper } from "./atoms";
 import Attendance from "./sections/attendance";
 import ReportReview from "./sections/reportreview";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "./theme.jsx";
 import Section from "./components/section";
+import AddTopic from "./components/addtopic";
 import Moment from "moment";
 
 
@@ -16,6 +13,9 @@ function Meeting() {
 	const [title, setTitle] = useState(today.getMonth() + " " + today.getFullYear() + " Minutes");
 	const [currentSection, setCurrentSection] = useState("attendance");
 	const [timeline, setTimeline] = useState([]);
+    const [oldBusinessTopics, setOldBusinessTopics] = useState([]);
+    const [newBusinessTopics, setNewBusinessTopics] = useState([]);
+    const [attendance, setAttendance] = useState([]);
 
 	const nextSection = (which) => {
 		var newTimeline = [...timeline];
@@ -24,8 +24,18 @@ function Meeting() {
 		setCurrentSection(which);
 	}
 
+    const addOldBusinessTopic = (topic) => {
+        setOldBusinessTopics(prev => [...prev, topic ]);
+        setCurrentSection(topic);
+    }
+
+    const addNewBusinessTopic = (topic) => {
+        setNewBusinessTopics(prev => [...prev, topic ]);
+        setCurrentSection(topic);
+    }
+
 	return (
-		<>
+		<form>
             <Box margin="16px 0">
                 <Grid container spacing={2}>
                     <Grid item sm={9}>
@@ -51,7 +61,7 @@ function Meeting() {
                         current={currentSection}
                         toggleSection={nextSection}
                     >
-                        <Attendance />
+                        <Attendance setAttendance={setAttendance} />
                     </Section>
                     <Section 
                         title="Treasurer's Report" 
@@ -72,9 +82,43 @@ function Meeting() {
                         <ReportReview title="Secretary's Report" />
                     </Section>
 
-                    <Typography variant="h4">Old Business</Typography>
+                    <Typography variant="h4" className="mt-4">Old Business</Typography>
+                    {oldBusinessTopics.map(topic => (
+                        <Section 
+                            title={topic} 
+                            name={topic} 
+                            current={currentSection}
+                            hasMotion
+                        >
+                            <TextField
+                                name="notes"
+                                multiline
+                                label="Notes"
+                                rows={4}
+                                fullWidth
+                            />
+                        </Section>
+                    ))}
+                    <AddTopic onSubmit={addOldBusinessTopic} />
 
-                    <Typography variant="h4">New Business</Typography>
+                    <Typography variant="h4" className="mt-4">New Business</Typography>
+                    {newBusinessTopics.map(topic => (
+                        <Section 
+                            title={topic} 
+                            name={topic} 
+                            current={currentSection}
+                            hasMotion
+                        >
+                            <TextField
+                                name="notes"
+                                multiline
+                                label="Notes"
+                                rows={4}
+                                fullWidth
+                            />
+                        </Section>
+                    ))}
+                    <AddTopic onSubmit={addNewBusinessTopic} />
                 </Grid>
                 <Hidden mdDown>
                     <Grid item md={4}>
@@ -91,7 +135,8 @@ function Meeting() {
                     </Grid>
                 </Hidden>
             </Grid>
-		</>
+            <Button type="submit">Submit</Button>
+		</form>
 	);
 }
 

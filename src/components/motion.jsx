@@ -1,22 +1,23 @@
-import { Grid, TextField, FormControlLabel, Radio, RadioGroup, Hidden } from "@mui/material";
+import { Grid, TextField, FormControlLabel, Radio, RadioGroup, Hidden, Button } from "@mui/material";
 import VotingMemberSelect from "./votingmemberselect";
 import { BlueContainer, GridWrapper } from "../atoms";
 
 
-export default function Motion ({ action }) {
+export default function Motion ({ action, onClose }) {
     return (
         <GridWrapper>
-            <BlueContainer container spacing={1} alignItems="flex-end">
-                <Grid item xs={12} sm={5} lg={3}>
+            <BlueContainer container spacing={1} alignItems="center">
+                {onClose && <i class="fa fa-trash top-right icon-danger" onClick={onClose} />}
+                <Grid item xs={12}>
                     <VotingMemberSelect fieldName="first" />
                 </Grid>
-                <Grid item xs={12} sm={7} lg={9}>
-                    made a motion to {action}.
+                <Grid item xs={12} className="input-line-height">
+                    made a motion to {action || <TextField variant="standard" name={`motion-{action}`} /> }.
                 </Grid>
-                <Grid item xs={12} sm={5} lg={3}>
+                <Grid item xs={12} md={7}>
                     <VotingMemberSelect fieldName="second" />
                 </Grid>
-                <Grid item xs={12} sm={7} lg={9}>
+                <Grid item xs={12} md={5}>
                     seconded.
                 </Grid>
                 <Grid item xs={12} sm={12}>
@@ -39,7 +40,9 @@ export default function Motion ({ action }) {
                                 size="small"
                                 label="In favor"
                                 inputProps={{
-                                    type: "number"
+                                    type: "number",
+                                    max: 5,
+                                    min: 0
                                 }}
                             />
                         </Grid>
@@ -49,8 +52,11 @@ export default function Motion ({ action }) {
                                 fullWidth
                                 size="small"
                                 label="Opposed"
+                                type="number"
                                 inputProps={{
-                                    type: "number"
+                                    type: "number",
+                                    max: 5,
+                                    min: 0
                                 }}
                             />
                         </Grid>
